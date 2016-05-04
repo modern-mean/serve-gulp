@@ -29,7 +29,7 @@ function buildFilter(file) {
 }
 
 function install(done) {
-  return gulp.src(['./modules/*/bower.json', './modules/*/package.json'])
+  return gulp.src(['./node_modules/modern-mean-*/bower.json', './node_modules/modern-mean-*/package.json'])
           .pipe(ignore.exclude(buildFilter))
           .pipe(ginstall())
           .pipe(debug());
@@ -37,7 +37,7 @@ function install(done) {
 install.displayName = 'modules:install';
 
 function build() {
-  return gulp.src(['./modules/*/gulpfile.babel.js'])
+  return gulp.src(['./node_modules/modern-mean-*/gulpfile.babel.js'])
           .pipe(map(function (file, cb) {
             exec('gulp --gulpfile ' + file.path, function(error, stdout, stderr) {
               console.log(stdout);
@@ -58,7 +58,7 @@ function application() {
 
   let modules = [];
 
-  return gulp.src(['./modules/*/dist/client/**/*.{js,css}', './node_modules/modern-mean-*/dist/client/**/*.{js,css}'])
+  return gulp.src(['./node_modules/modern-mean-*/dist/client/**/*.{js,css}'])
           .pipe(debug())
           .pipe(angular)
           .pipe(rename('angular.js'))
@@ -104,7 +104,7 @@ images.displayName = 'serve:modules:images';
 
 function inject() {
   //TODO this is hacky cause I am in a hurry
-  return gulp.src(['*/modern-mean-core-material/dist/server/views/index.server.view.html'])
+  return gulp.src(['./node_modules/modern-mean-core-material/dist/server/views/index.server.view.html'])
     .pipe(ginject(gulp.src(['public/dist/angular.js', 'public/dist/bootloader.js', 'public/dist/**/*.{js,css}'], {read: false}), {
       ignorePath: '/public'
     }))

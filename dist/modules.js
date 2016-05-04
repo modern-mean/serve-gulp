@@ -68,12 +68,12 @@ function buildFilter(file) {
 }
 
 function install(done) {
-  return _gulp2.default.src(['./modules/*/bower.json', './modules/*/package.json']).pipe(_gulpIgnore2.default.exclude(buildFilter)).pipe((0, _gulpInstall2.default)()).pipe((0, _gulpDebug2.default)());
+  return _gulp2.default.src(['./node_modules/modern-mean-*/bower.json', './node_modules/modern-mean-*/package.json']).pipe(_gulpIgnore2.default.exclude(buildFilter)).pipe((0, _gulpInstall2.default)()).pipe((0, _gulpDebug2.default)());
 }
 install.displayName = 'modules:install';
 
 function build() {
-  return _gulp2.default.src(['./modules/*/gulpfile.babel.js']).pipe((0, _mapStream2.default)(function (file, cb) {
+  return _gulp2.default.src(['./node_modules/modern-mean-*/gulpfile.babel.js']).pipe((0, _mapStream2.default)(function (file, cb) {
     (0, _child_process.exec)('gulp --gulpfile ' + file.path, function (error, stdout, stderr) {
       console.log(stdout);
       cb();
@@ -93,7 +93,7 @@ function application() {
 
   let modules = [];
 
-  return _gulp2.default.src(['./modules/*/dist/client/**/*.{js,css}', './node_modules/modern-mean-*/dist/client/**/*.{js,css}']).pipe((0, _gulpDebug2.default)()).pipe(angular).pipe((0, _gulpRename2.default)('angular.js')).pipe(angular.restore).pipe(bootloader).pipe((0, _gulpRename2.default)('bootloader.js')).pipe(bootloader.restore).pipe(applicationJS).pipe((0, _gulpConcat2.default)('application.js')).pipe(applicationJS.restore).pipe(templates).pipe((0, _gulpConcat2.default)('templates.js')).pipe(templates.restore).pipe(vendorJS).pipe((0, _gulpConcat2.default)('vendor.js')).pipe(vendorJS.restore).pipe(applicationCSS).pipe((0, _gulpConcat2.default)('application.css')).pipe(applicationCSS.restore).pipe(vendorCSS).pipe((0, _gulpConcat2.default)('vendor.css')).pipe(vendorCSS.restore).pipe(_gulp2.default.dest('./public/dist'));
+  return _gulp2.default.src(['./node_modules/modern-mean-*/dist/client/**/*.{js,css}']).pipe((0, _gulpDebug2.default)()).pipe(angular).pipe((0, _gulpRename2.default)('angular.js')).pipe(angular.restore).pipe(bootloader).pipe((0, _gulpRename2.default)('bootloader.js')).pipe(bootloader.restore).pipe(applicationJS).pipe((0, _gulpConcat2.default)('application.js')).pipe(applicationJS.restore).pipe(templates).pipe((0, _gulpConcat2.default)('templates.js')).pipe(templates.restore).pipe(vendorJS).pipe((0, _gulpConcat2.default)('vendor.js')).pipe(vendorJS.restore).pipe(applicationCSS).pipe((0, _gulpConcat2.default)('application.css')).pipe(applicationCSS.restore).pipe(vendorCSS).pipe((0, _gulpConcat2.default)('vendor.css')).pipe(vendorCSS.restore).pipe(_gulp2.default.dest('./public/dist'));
 }
 application.displayName = 'application';
 
@@ -114,7 +114,7 @@ images.displayName = 'serve:modules:images';
 
 function inject() {
   //TODO this is hacky cause I am in a hurry
-  return _gulp2.default.src(['*/modern-mean-core-material/dist/server/views/index.server.view.html']).pipe((0, _gulpInject2.default)(_gulp2.default.src(['public/dist/angular.js', 'public/dist/bootloader.js', 'public/dist/**/*.{js,css}'], { read: false }), {
+  return _gulp2.default.src(['./node_modules/modern-mean-core-material/dist/server/views/index.server.view.html']).pipe((0, _gulpInject2.default)(_gulp2.default.src(['public/dist/angular.js', 'public/dist/bootloader.js', 'public/dist/**/*.{js,css}'], { read: false }), {
     ignorePath: '/public'
   })).pipe(_gulp2.default.dest('.'));
 }
