@@ -108,7 +108,7 @@ function inject() {
     .pipe(ginject(gulp.src(['public/dist/angular.js', 'public/dist/bootloader.js', 'public/dist/**/*.{js,css}'], {read: false}), {
       ignorePath: '/public'
     }))
-    .pipe(gulp.dest('.'));
+    .pipe(gulp.dest('./node_modules/modern-mean-core-material/dist/server/views/'));
 }
 inject.displayName = 'serve:modules:inject';
 
