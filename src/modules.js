@@ -98,7 +98,7 @@ function images() {
           }))
           .pipe(gulp.dest('./public/dist/img'));
 }
-modules.displayName = 'serve:modules:images';
+images.displayName = 'serve:modules:images';
 
 function inject() {
   //TODO this is hacky cause I am in a hurry
