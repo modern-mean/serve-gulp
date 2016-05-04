@@ -1,3 +1,6 @@
+'use strict';
+
+import gulp from 'gulp';
 import livereload from 'gulp-livereload';
 import lodash from 'lodash';
 

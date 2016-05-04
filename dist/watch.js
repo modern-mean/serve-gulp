@@ -5,6 +5,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.livereload = exports.all = exports.server = exports.client = undefined;
 
+var _gulp = require('gulp');
+
+var _gulp2 = _interopRequireDefault(_gulp);
+
 var _gulpLivereload = require('gulp-livereload');
 
 var _gulpLivereload2 = _interopRequireDefault(_gulpLivereload);
@@ -18,14 +22,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function client(done) {
   let watchFiles = ['./modules/*/client/**/*', '!**/*.constants.js', '!**/*.values.js'];
   _gulpLivereload2.default.listen();
-  let watcher = gulp.watch(watchFiles);
+  let watcher = _gulp2.default.watch(watchFiles);
   watcher.on('change', function (filepath, stats) {
     let pathArr = filepath.split('/');
     let modulePath = pathArr[0] + '/' + pathArr[1];
     let gulpFile = './' + modulePath + '/gulpfile.babel.js';
     exec('gulp --gulpfile ' + gulpFile + ' client', function (error, stdout, stderr) {
       console.log(stdout);
-      gulp.series(gulp.parallel(build.modules, build.images), build.inject, restart, livereloadChanged)();
+      _gulp2.default.series(_gulp2.default.parallel(build.modules, build.images), build.inject, restart, livereloadChanged)();
     });
   });
 
@@ -35,14 +39,14 @@ client.displayName = 'serve:watch:client';
 
 function server(done) {
   let watchFiles = ['./modules/*/server/**/*'];
-  let watcher = gulp.watch(watchFiles);
+  let watcher = _gulp2.default.watch(watchFiles);
   watcher.on('change', function (filepath, stats) {
     let pathArr = filepath.split('/');
     let modulePath = pathArr[0] + '/' + pathArr[1];
     let gulpFile = './' + modulePath + '/gulpfile.babel.js';
     exec('gulp --gulpfile ' + gulpFile + ' server', function (error, stdout, stderr) {
       console.log(stdout);
-      gulp.series(build.inject, restart)();
+      _gulp2.default.series(build.inject, restart)();
     });
   });
 
@@ -58,7 +62,7 @@ function livereloadChanged(done) {
 }
 livereloadChanged.displayName = 'serve:livereload';
 
-let all = gulp.parallel(client, server);
+let all = _gulp2.default.parallel(client, server);
 all.displayName = 'serve:watch:all';
 
 exports.client = client;
