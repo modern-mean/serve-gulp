@@ -13,6 +13,10 @@ var _gulpConcat = require('gulp-concat');
 
 var _gulpConcat2 = _interopRequireDefault(_gulpConcat);
 
+var _gulpDebug = require('gulp-debug');
+
+var _gulpDebug2 = _interopRequireDefault(_gulpDebug);
+
 var _gulpRename = require('gulp-rename');
 
 var _gulpRename2 = _interopRequireDefault(_gulpRename);
@@ -60,7 +64,7 @@ function buildFilter(file) {
 }
 
 function install(done) {
-  return _gulp2.default.src(['./modules/*/bower.json', './modules/*/package.json']).pipe(_gulpIgnore2.default.exclude(buildFilter)).pipe((0, _gulpInstall2.default)()).pipe(debug());
+  return _gulp2.default.src(['./modules/*/bower.json', './modules/*/package.json']).pipe(_gulpIgnore2.default.exclude(buildFilter)).pipe((0, _gulpInstall2.default)()).pipe((0, _gulpDebug2.default)());
 }
 install.displayName = 'modules:install';
 
@@ -85,7 +89,7 @@ function application() {
 
   let modules = [];
 
-  return _gulp2.default.src(['./modules/*/dist/client/**/*.{js,css}', './node_modules/modern-mean-*/dist/client/**/*.{js,css}']).pipe(debug()).pipe(angular).pipe((0, _gulpRename2.default)('angular.js')).pipe(angular.restore).pipe(bootloader).pipe((0, _gulpRename2.default)('bootloader.js')).pipe(bootloader.restore).pipe(applicationJS).pipe((0, _gulpConcat2.default)('application.js')).pipe(applicationJS.restore).pipe(templates).pipe((0, _gulpConcat2.default)('templates.js')).pipe(templates.restore).pipe(vendorJS).pipe((0, _gulpConcat2.default)('vendor.js')).pipe(vendorJS.restore).pipe(applicationCSS).pipe((0, _gulpConcat2.default)('application.css')).pipe(applicationCSS.restore).pipe(vendorCSS).pipe((0, _gulpConcat2.default)('vendor.css')).pipe(vendorCSS.restore).pipe(_gulp2.default.dest('./public/dist'));
+  return _gulp2.default.src(['./modules/*/dist/client/**/*.{js,css}', './node_modules/modern-mean-*/dist/client/**/*.{js,css}']).pipe((0, _gulpDebug2.default)()).pipe(angular).pipe((0, _gulpRename2.default)('angular.js')).pipe(angular.restore).pipe(bootloader).pipe((0, _gulpRename2.default)('bootloader.js')).pipe(bootloader.restore).pipe(applicationJS).pipe((0, _gulpConcat2.default)('application.js')).pipe(applicationJS.restore).pipe(templates).pipe((0, _gulpConcat2.default)('templates.js')).pipe(templates.restore).pipe(vendorJS).pipe((0, _gulpConcat2.default)('vendor.js')).pipe(vendorJS.restore).pipe(applicationCSS).pipe((0, _gulpConcat2.default)('application.css')).pipe(applicationCSS.restore).pipe(vendorCSS).pipe((0, _gulpConcat2.default)('vendor.css')).pipe(vendorCSS.restore).pipe(_gulp2.default.dest('./public/dist'));
 }
 application.displayName = 'application';
 
