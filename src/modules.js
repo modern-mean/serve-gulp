@@ -109,7 +109,7 @@ function inject() {
       ignorePath: '/public'
     }))
     .pipe(rename('index.server.view.html'))
-    .pipe(gulp.dest('./public/dist'));
+    .pipe(gulp.dest('.'));
 }
 inject.displayName = 'serve:modules:inject';
 
