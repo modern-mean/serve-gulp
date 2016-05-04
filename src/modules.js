@@ -108,7 +108,6 @@ function inject() {
     .pipe(ginject(gulp.src(['public/dist/angular.js', 'public/dist/bootloader.js', 'public/dist/**/*.{js,css}'], {read: false}), {
       ignorePath: '/public'
     }))
-    .pipe(rename('index.server.view.html'))
     .pipe(gulp.dest('.'));
 }
 inject.displayName = 'serve:modules:inject';
