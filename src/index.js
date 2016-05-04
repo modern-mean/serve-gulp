@@ -1,5 +1,6 @@
 'use strict';
 
+import gulp from 'gulp';
 import del from 'del';
 import * as forever from './forever';
 import * as modules from './modules';

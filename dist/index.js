@@ -5,6 +5,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.clean = exports.watch = exports.nodemon = exports.modules = exports.forever = undefined;
 
+var _gulp = require('gulp');
+
+var _gulp2 = _interopRequireDefault(_gulp);
+
 var _del = require('del');
 
 var _del2 = _interopRequireDefault(_del);
@@ -33,7 +37,7 @@ function clean() {
   return (0, _del2.default)(['./public/dist']);
 }
 clean.displayName = 'serve:clean';
-gulp.task(clean);
+_gulp2.default.task(clean);
 
 exports.forever = forever;
 exports.modules = modules;
