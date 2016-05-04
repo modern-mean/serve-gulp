@@ -17,6 +17,10 @@ var _gulpDebug = require('gulp-debug');
 
 var _gulpDebug2 = _interopRequireDefault(_gulpDebug);
 
+var _gulpFilter = require('gulp-filter');
+
+var _gulpFilter2 = _interopRequireDefault(_gulpFilter);
+
 var _gulpRename = require('gulp-rename');
 
 var _gulpRename2 = _interopRequireDefault(_gulpRename);
@@ -79,13 +83,13 @@ function build() {
 build.displayName = 'modules:build';
 
 function application() {
-  let angular = filter(['**/angular.js'], { restore: true });
-  let bootloader = filter(['**/bootloader.js'], { restore: true });
-  let applicationJS = filter(['**/application.js'], { restore: true });
-  let applicationCSS = filter(['**/application.css'], { restore: true });
-  let vendorJS = filter(['**/vendor.js'], { restore: true });
-  let vendorCSS = filter(['**/vendor.css'], { restore: true });
-  let templates = filter(['**/templates.js'], { restore: true });
+  let angular = (0, _gulpFilter2.default)(['**/angular.js'], { restore: true });
+  let bootloader = (0, _gulpFilter2.default)(['**/bootloader.js'], { restore: true });
+  let applicationJS = (0, _gulpFilter2.default)(['**/application.js'], { restore: true });
+  let applicationCSS = (0, _gulpFilter2.default)(['**/application.css'], { restore: true });
+  let vendorJS = (0, _gulpFilter2.default)(['**/vendor.js'], { restore: true });
+  let vendorCSS = (0, _gulpFilter2.default)(['**/vendor.css'], { restore: true });
+  let templates = (0, _gulpFilter2.default)(['**/templates.js'], { restore: true });
 
   let modules = [];
 

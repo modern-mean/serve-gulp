@@ -3,6 +3,7 @@
 import gulp from 'gulp';
 import concat from 'gulp-concat';
 import debug from 'gulp-debug';
+import filter from 'gulp-filter';
 import rename from 'gulp-rename';
 import ginject from 'gulp-inject';
 import map from 'map-stream';
