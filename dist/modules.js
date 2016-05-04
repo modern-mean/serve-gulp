@@ -116,7 +116,7 @@ function inject() {
   //TODO this is hacky cause I am in a hurry
   return _gulp2.default.src(['./node_modules/modern-mean-core-material/dist/server/views/index.server.view.html']).pipe((0, _gulpInject2.default)(_gulp2.default.src(['public/dist/angular.js', 'public/dist/bootloader.js', 'public/dist/**/*.{js,css}'], { read: false }), {
     ignorePath: '/public'
-  })).pipe(_gulp2.default.dest('.'));
+  })).pipe((0, _gulpRename2.default)('index.server.view.html')).pipe(_gulp2.default.dest('./public'));
 }
 inject.displayName = 'serve:modules:inject';
 
