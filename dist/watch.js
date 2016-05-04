@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.livereload = exports.server = exports.client = undefined;
+exports.livereload = exports.all = exports.server = exports.client = undefined;
 
 var _gulpLivereload = require('gulp-livereload');
 
@@ -58,6 +58,10 @@ function livereloadChanged(done) {
 }
 livereloadChanged.displayName = 'serve:livereload';
 
+let all = gulp.parallel(client, server);
+all.displayName = 'serve:watch:all';
+
 exports.client = client;
 exports.server = server;
+exports.all = all;
 exports.livereload = livereloadChanged;

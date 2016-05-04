@@ -45,4 +45,7 @@ function livereloadChanged(done) {
 }
 livereloadChanged.displayName = 'serve:livereload';
 
-export { client, server, livereloadChanged as livereload };
+let all = gulp.parallel(client, server);
+all.displayName = 'serve:watch:all';
+
+export { client, server, all, livereloadChanged as livereload };
