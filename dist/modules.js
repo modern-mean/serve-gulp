@@ -68,7 +68,7 @@ function buildFilter(file) {
 }
 
 function install(done) {
-  return _gulp2.default.src(['./node_modules/modern-mean-*/bower.json', './node_modules/modern-mean-*/package.json']).pipe(_gulpIgnore2.default.exclude(buildFilter)).pipe((0, _gulpInstall2.default)()).pipe((0, _gulpDebug2.default)());
+  return _gulp2.default.src(['./modulesdev/modern-mean-*/bower.json', './modulesdev/modern-mean-*/package.json']).pipe(_gulpIgnore2.default.exclude(buildFilter)).pipe((0, _gulpInstall2.default)()).pipe((0, _gulpDebug2.default)());
 }
 install.displayName = 'modules:install';
 

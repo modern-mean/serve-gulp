@@ -29,7 +29,7 @@ function buildFilter(file) {
 }
 
 function install(done) {
-  return gulp.src(['./node_modules/modern-mean-*/bower.json', './node_modules/modern-mean-*/package.json'])
+  return gulp.src(['./modulesdev/modern-mean-*/bower.json', './modulesdev/modern-mean-*/package.json'])
           .pipe(ignore.exclude(buildFilter))
           .pipe(ginstall())
           .pipe(debug());
