@@ -31,7 +31,8 @@
     "gulp-livereload": "~3.8.1",
     "gulp-nodemon": "~2.0.6",
     "gulp-rename": "~1.2.2",
-    "map-stream": "0.0.6"
+    "map-stream": "0.0.6",
+    "modern-mean-build-gulp": "github:modern-mean/build-gulp"
   },
   "devDependencies": {}
 }

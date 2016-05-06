@@ -17,36 +17,51 @@ var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
+var _child_process = require('child_process');
+
+var _modules = require('modern-mean-build-gulp/dist/modules');
+
+var _modules2 = require('./modules');
+
+var _nodemon = require('./nodemon');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function client(done) {
-  let watchFiles = ['./modules/*/client/**/*', '!**/*.constants.js', '!**/*.values.js'];
-  _gulpLivereload2.default.listen();
-  let watcher = _gulp2.default.watch(watchFiles);
-  watcher.on('change', function (filepath, stats) {
-    let pathArr = filepath.split('/');
-    let modulePath = pathArr[0] + '/' + pathArr[1];
-    let gulpFile = './' + modulePath + '/gulpfile.babel.js';
-    exec('gulp --gulpfile ' + gulpFile + ' client', function (error, stdout, stderr) {
-      console.log(stdout);
-      _gulp2.default.series(_gulp2.default.parallel(build.modules, build.images), build.inject, restart, livereloadChanged)();
+  try {
+    let watchFiles = ['./moduledev/modern-mean-users-material/src/client/run/users.client.run.authcheck.js', '!**/*.constants.js', '!**/*.values.js'];
+    _gulpLivereload2.default.listen();
+    let watcher = _gulp2.default.watch(watchFiles);
+    watcher.on('change', function (filepath, stats) {
+      let pathArr = filepath.split('/');
+      let modulePath = pathArr[0] + '/' + pathArr[1];
+      let gulpFile = './' + modulePath + '/gulpfile.babel.js';
+      (0, _child_process.exec)('gulp --gulpfile ' + gulpFile + ' client', function (error, stdout, stderr) {
+        console.log(stdout);
+        _gulp2.default.series(_modules.client.build)();
+      }).on('exit', () => {
+        //gulp.series(inject, restart, livereloadChanged)();
+        return done();
+      });
     });
-  });
-
-  return done();
+  } catch (err) {
+    console.log(err);
+  }
 }
 client.displayName = 'serve:watch:client';
 
 function server(done) {
-  let watchFiles = ['./modules/*/server/**/*'];
+  let watchFiles = ['./modulesdev/*/src/server/**/*'];
   let watcher = _gulp2.default.watch(watchFiles);
+  console.log(watcher);
   watcher.on('change', function (filepath, stats) {
+    console.log(filepath);
     let pathArr = filepath.split('/');
     let modulePath = pathArr[0] + '/' + pathArr[1];
     let gulpFile = './' + modulePath + '/gulpfile.babel.js';
-    exec('gulp --gulpfile ' + gulpFile + ' server', function (error, stdout, stderr) {
+    (0, _child_process.exec)('gulp --gulpfile ' + gulpFile + ' server', function (error, stdout, stderr) {
       console.log(stdout);
-      _gulp2.default.series(build.inject, restart)();
+      _gulp2.default.series(build.inject, _nodemon.restart)();
     });
   });
 
