@@ -42,7 +42,6 @@ function build(done) {
       const child = spawn('gulp', ['--gulpfile', file.path, 'watch'], { env: process.env, stdio: ['inherit', 'inherit', 'inherit', 'ipc'], detached: true });
       child.unref();
       child.on('message', (data) => {
-        console.log('Message!!!!!!!!!!!!!!!!!', data);
         return done();
       })
     }));

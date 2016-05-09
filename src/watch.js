@@ -7,14 +7,19 @@ import { exec } from 'child_process';
 import { inject, application } from './modules';
 import { restart } from './nodemon';
 
+let clientWatcher,
+  serverWatcher;
+
 function client(done) {
   livereload.listen();
-  return gulp.watch(['./moduledev/modern-mean-users-material/dist/client/**/*'], gulp.series(application, restart, livereloadChanged));
+  clientWatcher = gulp.watch(['./moduledev/modern-mean-users-material/dist/client/**/*'], gulp.series(application, restart, livereloadChanged));
+  return done();
 }
 client.displayName = 'serve:watch:client';
 
 function server(done) {
-  return gulp.watch(['./moduledev/modern-mean-users-material/dist/server/**/*'], gulp.series(restart, livereloadChanged));
+  serverWatcher = gulp.watch(['./moduledev/modern-mean-users-material/dist/server/**/*'], gulp.series(restart, livereloadChanged));
+  return done();
 }
 server.displayName = 'serve:watch:server';
 

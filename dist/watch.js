@@ -25,14 +25,18 @@ var _nodemon = require('./nodemon');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+let clientWatcher, serverWatcher;
+
 function client(done) {
   _gulpLivereload2.default.listen();
-  return _gulp2.default.watch(['./moduledev/modern-mean-users-material/dist/client/**/*'], _gulp2.default.series(_modules.application, _nodemon.restart, livereloadChanged));
+  clientWatcher = _gulp2.default.watch(['./moduledev/modern-mean-users-material/dist/client/**/*'], _gulp2.default.series(_modules.application, _nodemon.restart, livereloadChanged));
+  return done();
 }
 client.displayName = 'serve:watch:client';
 
 function server(done) {
-  return _gulp2.default.watch(['./moduledev/modern-mean-users-material/dist/server/**/*'], _gulp2.default.series(_nodemon.restart, livereloadChanged));
+  serverWatcher = _gulp2.default.watch(['./moduledev/modern-mean-users-material/dist/server/**/*'], _gulp2.default.series(_nodemon.restart, livereloadChanged));
+  return done();
 }
 server.displayName = 'serve:watch:server';
 
