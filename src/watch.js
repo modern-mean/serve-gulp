@@ -12,7 +12,7 @@ let clientWatcher,
 
 function client(done) {
   livereload.listen();
-  clientWatcher = gulp.watch(['./moduledev/modern-mean-users-material/dist/client/**/*'], gulp.series(application, restart, livereloadChanged));
+  clientWatcher = gulp.watch(['./moduledev/*/dist/client/**/*'], gulp.series(application, restart, livereloadChanged));
   return done();
 }
 client.displayName = 'serve:watch:client';

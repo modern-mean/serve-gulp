@@ -29,7 +29,7 @@ let clientWatcher, serverWatcher;
 
 function client(done) {
   _gulpLivereload2.default.listen();
-  clientWatcher = _gulp2.default.watch(['./moduledev/modern-mean-users-material/dist/client/**/*'], _gulp2.default.series(_modules.application, _nodemon.restart, livereloadChanged));
+  clientWatcher = _gulp2.default.watch(['./moduledev/*/dist/client/**/*'], _gulp2.default.series(_modules.application, _nodemon.restart, livereloadChanged));
   return done();
 }
 client.displayName = 'serve:watch:client';

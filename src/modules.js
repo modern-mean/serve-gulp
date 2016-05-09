@@ -31,8 +31,7 @@ function buildFilter(file) {
 function install(done) {
   return gulp.src(['./moduledev/modern-mean-*/bower.json', './moduledev/modern-mean-*/package.json'])
           .pipe(ignore.exclude(buildFilter))
-          .pipe(ginstall())
-          .pipe(debug());
+          .pipe(ginstall());
 }
 install.displayName = 'modules:install';
 
@@ -66,7 +65,6 @@ function application() {
   let modules = [];
 
   return gulp.src(['./node_modules/modern-mean-*/dist/client/**/*.{js,css}'])
-          .pipe(debug())
           .pipe(angular)
           .pipe(rename('angular.js'))
           .pipe(angular.restore)
