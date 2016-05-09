@@ -73,11 +73,10 @@ function install(done) {
 install.displayName = 'modules:install';
 
 function build(done) {
-  _gulp2.default.src(['./moduledev/modern-mean-*/gulpfile.babel.js']).pipe((0, _mapStream2.default)(function (file, cb) {
+  return _gulp2.default.src(['./moduledev/modern-mean-*/gulpfile.babel.js']).pipe((0, _mapStream2.default)(function (file, cb) {
     const child = (0, _child_process.spawn)('gulp', ['--gulpfile', file.path, 'watch'], { env: process.env, stdio: ['inherit', 'inherit', 'inherit', 'ipc'], detached: true });
     child.unref();
     child.on('message', data => {
-      console.log('Message!!!!!!!!!!!!!!!!!', data);
       return done();
     });
   }));

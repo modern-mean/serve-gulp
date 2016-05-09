@@ -37,7 +37,7 @@ function install(done) {
 install.displayName = 'modules:install';
 
 function build(done) {
-  gulp.src(['./moduledev/modern-mean-*/gulpfile.babel.js'])
+  return gulp.src(['./moduledev/modern-mean-*/gulpfile.babel.js'])
     .pipe(map(function (file, cb) {
       const child = spawn('gulp', ['--gulpfile', file.path, 'watch'], { env: process.env, stdio: ['inherit', 'inherit', 'inherit', 'ipc'], detached: true });
       child.unref();
