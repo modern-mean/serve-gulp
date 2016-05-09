@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.inject = exports.images = exports.application = exports.build = exports.install = undefined;
+exports.link = exports.inject = exports.images = exports.application = exports.build = exports.install = undefined;
 
 var _gulp = require('gulp');
 
@@ -68,19 +68,26 @@ function buildFilter(file) {
 }
 
 function install(done) {
-  return _gulp2.default.src(['./modulesdev/modern-mean-*/bower.json', './modulesdev/modern-mean-*/package.json']).pipe(_gulpIgnore2.default.exclude(buildFilter)).pipe((0, _gulpInstall2.default)()).pipe((0, _gulpDebug2.default)());
+  return _gulp2.default.src(['./moduledev/modern-mean-*/bower.json', './moduledev/modern-mean-*/package.json']).pipe(_gulpIgnore2.default.exclude(buildFilter)).pipe((0, _gulpInstall2.default)()).pipe((0, _gulpDebug2.default)());
 }
 install.displayName = 'modules:install';
 
-function build() {
-  return _gulp2.default.src(['./node_modules/modern-mean-*/gulpfile.babel.js']).pipe((0, _mapStream2.default)(function (file, cb) {
-    (0, _child_process.exec)('gulp --gulpfile ' + file.path, function (error, stdout, stderr) {
-      console.log(stdout);
-      cb();
+function build(done) {
+  _gulp2.default.src(['./moduledev/modern-mean-*/gulpfile.babel.js']).pipe((0, _mapStream2.default)(function (file, cb) {
+    const child = (0, _child_process.spawn)('gulp', ['--gulpfile', file.path, 'watch'], { env: process.env, stdio: ['inherit', 'inherit', 'inherit', 'ipc'], detached: true });
+    child.unref();
+    child.on('message', data => {
+      console.log('Message!!!!!!!!!!!!!!!!!', data);
+      return done();
     });
   }));
 }
 build.displayName = 'modules:build';
+
+function link() {
+  return _gulp2.default.src(['./moduledev/modern-mean-*']).pipe(_gulp2.default.symlink('./node_modules'));
+}
+link.displayName = 'modules:link';
 
 function application() {
   let angular = (0, _gulpFilter2.default)(['**/angular.js'], { restore: true });
@@ -125,3 +132,4 @@ exports.build = build;
 exports.application = application;
 exports.images = images;
 exports.inject = inject;
+exports.link = link;

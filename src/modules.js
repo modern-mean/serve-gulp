@@ -11,7 +11,7 @@ import path from 'path';
 import fs from 'fs';
 import ignore from 'gulp-ignore';
 import ginstall from 'gulp-install';
-import { exec } from 'child_process';
+import { spawn } from 'child_process';
 
 
 function buildFilter(file) {
@@ -29,23 +29,31 @@ function buildFilter(file) {
 }
 
 function install(done) {
-  return gulp.src(['./modulesdev/modern-mean-*/bower.json', './modulesdev/modern-mean-*/package.json'])
+  return gulp.src(['./moduledev/modern-mean-*/bower.json', './moduledev/modern-mean-*/package.json'])
           .pipe(ignore.exclude(buildFilter))
           .pipe(ginstall())
           .pipe(debug());
 }
 install.displayName = 'modules:install';
 
-function build() {
-  return gulp.src(['./node_modules/modern-mean-*/gulpfile.babel.js'])
-          .pipe(map(function (file, cb) {
-            exec('gulp --gulpfile ' + file.path, function(error, stdout, stderr) {
-              console.log(stdout);
-              cb();
-            });
-          }));
+function build(done) {
+  gulp.src(['./moduledev/modern-mean-*/gulpfile.babel.js'])
+    .pipe(map(function (file, cb) {
+      const child = spawn('gulp', ['--gulpfile', file.path, 'watch'], { env: process.env, stdio: ['inherit', 'inherit', 'inherit', 'ipc'], detached: true });
+      child.unref();
+      child.on('message', (data) => {
+        console.log('Message!!!!!!!!!!!!!!!!!', data);
+        return done();
+      })
+    }));
 }
 build.displayName = 'modules:build';
+
+function link() {
+  return gulp.src(['./moduledev/modern-mean-*'])
+    .pipe(gulp.symlink('./node_modules'));
+}
+link.displayName = 'modules:link';
 
 function application() {
   let angular = filter(['**/angular.js'], { restore: true });
@@ -113,4 +121,4 @@ function inject() {
 inject.displayName = 'serve:modules:inject';
 
 
-export { install, build, application, images, inject };
+export { install, build, application, images, inject, link };
