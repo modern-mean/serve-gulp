@@ -20,7 +20,7 @@ let nodemonInstance;
 function start(done) {
   nodemonInstance = (0, _gulpNodemon2.default)({
     //TODO this is hacky because i am in a hurry
-    script: '*/modern-mean-core-material/dist/server/app/server.js',
+    script: '*/modern-mean-core-server/dist/server/app/server.js',
     watch: ['noop']
   });
   return done();

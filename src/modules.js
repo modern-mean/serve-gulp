@@ -109,11 +109,11 @@ images.displayName = 'serve:modules:images';
 
 function inject() {
   //TODO this is hacky cause I am in a hurry
-  return gulp.src(['./node_modules/modern-mean-core-material/dist/server/views/index.server.view.html'])
-    .pipe(ginject(gulp.src(['public/dist/angular.js', 'public/dist/bootloader.js', 'public/dist/**/*.{js,css}'], {read: false}), {
+  return gulp.src(['./node_modules/modern-mean-core-server/dist/server/views/material.html'])
+    .pipe(ginject(gulp.src(['./public/dist/**/*.{js,css}'], {read: false}), {
       ignorePath: '/public'
     }))
-    .pipe(gulp.dest('./node_modules/modern-mean-core-material/dist/server/views/'));
+    .pipe(gulp.dest('./node_modules/modern-mean-core-server/dist/server/views/'));
 }
 inject.displayName = 'serve:modules:inject';
 
