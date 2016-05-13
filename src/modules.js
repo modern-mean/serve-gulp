@@ -6,6 +6,7 @@ import debug from 'gulp-debug';
 import filter from 'gulp-filter';
 import rename from 'gulp-rename';
 import ginject from 'gulp-inject';
+import gulpFn from 'gulp-fn';
 import map from 'map-stream';
 import path from 'path';
 import fs from 'fs';
@@ -36,14 +37,27 @@ function install(done) {
 install.displayName = 'modules:install';
 
 function build(done) {
+  let modules = [];
+  //TODO Gotta wait for message from ALL modules.  May have to count the files in the stream and wait for that many messages
   return gulp.src(['./moduledev/modern-mean-*/gulpfile.babel.js'])
     .pipe(map(function (file, cb) {
+
       const child = spawn('gulp', ['--gulpfile', file.path, 'watch'], { env: process.env, stdio: ['inherit', 'inherit', 'inherit', 'ipc'], detached: true });
       child.unref();
       child.on('message', (data) => {
-        return done();
+        return cb();
       })
+
+    }))
+    .pipe(debug())
+    .pipe(gulpFn(function(file) {
+        Promise.all(modules).then(() => done())
     }));
+
+
+
+
+
 }
 build.displayName = 'modules:build';
 
@@ -110,7 +124,7 @@ images.displayName = 'serve:modules:images';
 function inject() {
   //TODO this is hacky cause I am in a hurry
   return gulp.src(['./node_modules/modern-mean-core-server/dist/server/views/material.html'])
-    .pipe(ginject(gulp.src(['./public/dist/**/*.{js,css}'], {read: false}), {
+    .pipe(ginject(gulp.src(['public/dist/angular.js', 'public/dist/bootloader.js', './public/dist/**/*.{js,css}'], {read: false}), {
       ignorePath: '/public'
     }))
     .pipe(gulp.dest('./node_modules/modern-mean-core-server/dist/server/views/'));

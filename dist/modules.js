@@ -29,6 +29,10 @@ var _gulpInject = require('gulp-inject');
 
 var _gulpInject2 = _interopRequireDefault(_gulpInject);
 
+var _gulpFn = require('gulp-fn');
+
+var _gulpFn2 = _interopRequireDefault(_gulpFn);
+
 var _mapStream = require('map-stream');
 
 var _mapStream2 = _interopRequireDefault(_mapStream);
@@ -73,12 +77,17 @@ function install(done) {
 install.displayName = 'modules:install';
 
 function build(done) {
+  let modules = [];
+  //TODO Gotta wait for message from ALL modules.  May have to count the files in the stream and wait for that many messages
   return _gulp2.default.src(['./moduledev/modern-mean-*/gulpfile.babel.js']).pipe((0, _mapStream2.default)(function (file, cb) {
+
     const child = (0, _child_process.spawn)('gulp', ['--gulpfile', file.path, 'watch'], { env: process.env, stdio: ['inherit', 'inherit', 'inherit', 'ipc'], detached: true });
     child.unref();
     child.on('message', data => {
-      return done();
+      return cb();
     });
+  })).pipe((0, _gulpDebug2.default)()).pipe((0, _gulpFn2.default)(function (file) {
+    Promise.all(modules).then(() => done());
   }));
 }
 build.displayName = 'modules:build';
@@ -120,7 +129,7 @@ images.displayName = 'serve:modules:images';
 
 function inject() {
   //TODO this is hacky cause I am in a hurry
-  return _gulp2.default.src(['./node_modules/modern-mean-core-server/dist/server/views/material.html']).pipe((0, _gulpInject2.default)(_gulp2.default.src(['./public/dist/**/*.{js,css}'], { read: false }), {
+  return _gulp2.default.src(['./node_modules/modern-mean-core-server/dist/server/views/material.html']).pipe((0, _gulpInject2.default)(_gulp2.default.src(['public/dist/angular.js', 'public/dist/bootloader.js', './public/dist/**/*.{js,css}'], { read: false }), {
     ignorePath: '/public'
   })).pipe(_gulp2.default.dest('./node_modules/modern-mean-core-server/dist/server/views/'));
 }
