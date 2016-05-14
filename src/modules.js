@@ -6,7 +6,6 @@ import debug from 'gulp-debug';
 import filter from 'gulp-filter';
 import rename from 'gulp-rename';
 import ginject from 'gulp-inject';
-import gulpFn from 'gulp-fn';
 import map from 'map-stream';
 import path from 'path';
 import fs from 'fs';
@@ -37,27 +36,14 @@ function install(done) {
 install.displayName = 'modules:install';
 
 function build(done) {
-  let modules = [];
-  //TODO Gotta wait for message from ALL modules.  May have to count the files in the stream and wait for that many messages
   return gulp.src(['./moduledev/modern-mean-*/gulpfile.babel.js'])
     .pipe(map(function (file, cb) {
-
       const child = spawn('gulp', ['--gulpfile', file.path, 'watch'], { env: process.env, stdio: ['inherit', 'inherit', 'inherit', 'ipc'], detached: true });
       child.unref();
       child.on('message', (data) => {
         return cb();
-      })
-
-    }))
-    .pipe(debug())
-    .pipe(gulpFn(function(file) {
-        Promise.all(modules).then(() => done())
+      });
     }));
-
-
-
-
-
 }
 build.displayName = 'modules:build';
 
