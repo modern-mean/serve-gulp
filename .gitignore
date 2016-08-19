@@ -2,6 +2,7 @@
 # ==========================
 node_modules/
 tests/.coverage
+npm-debug.log
 
 # Sublime editor
 # ==============

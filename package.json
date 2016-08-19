@@ -17,6 +17,7 @@
     "postversion": "git push && git push --tags && npm publish --access public"
   },
   "dependencies": {
+    "del": "^2.2.2",
     "forever": "~0.15.1",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-nodemon": "~2.0.6"

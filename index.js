@@ -3,23 +3,15 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.clean = exports.watch = exports.nodemon = exports.modules = exports.forever = undefined;
+exports.watch = exports.nodemon = exports.forever = undefined;
 
 var _gulp = require('gulp');
 
 var _gulp2 = _interopRequireDefault(_gulp);
 
-var _del = require('del');
-
-var _del2 = _interopRequireDefault(_del);
-
 var _forever = require('./forever');
 
 var forever = _interopRequireWildcard(_forever);
-
-var _modules = require('./modules');
-
-var modules = _interopRequireWildcard(_modules);
 
 var _nodemon = require('./nodemon');
 
@@ -33,14 +25,6 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function clean() {
-  return (0, _del2.default)(['./public/dist']);
-}
-clean.displayName = 'serve:clean';
-_gulp2.default.task(clean);
-
 exports.forever = forever;
-exports.modules = modules;
 exports.nodemon = nodemon;
 exports.watch = watch;
-exports.clean = clean;
