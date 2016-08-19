@@ -8,7 +8,7 @@ let nodemonInstance;
 function start(done) {
   nodemonInstance = nodemon({
     //TODO this is hacky because i am in a hurry
-    script: '*/modern-mean-core-server/dist/server/app/server.js',
+    script: process.env.MM_SERVER_ENTRY,
     watch: ['noop'],
   });
   return done();
