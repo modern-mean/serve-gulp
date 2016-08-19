@@ -9,15 +9,15 @@ var _gulp = require('gulp');
 
 var _gulp2 = _interopRequireDefault(_gulp);
 
-var _forever = require('./forever');
+var _forever = require('./dist/forever');
 
 var forever = _interopRequireWildcard(_forever);
 
-var _nodemon = require('./nodemon');
+var _nodemon = require('./dist/nodemon');
 
 var nodemon = _interopRequireWildcard(_nodemon);
 
-var _watch = require('./watch');
+var _watch = require('./dist/watch');
 
 var watch = _interopRequireWildcard(_watch);
 

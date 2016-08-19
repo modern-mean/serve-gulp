@@ -1,7 +1,7 @@
 {
   "name": "@modern-mean/serve-gulp",
   "description": "Modern Mean Serve Package",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": false,
   "author": "https://github.com/modern-mean/serve-gulp/graphs/contributors",
   "license": "MIT",
