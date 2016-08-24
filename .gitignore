@@ -3,6 +3,7 @@
 node_modules/
 tests/.coverage
 npm-debug.log
+dist/
 
 # Sublime editor
 # ==============
