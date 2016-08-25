@@ -5,21 +5,26 @@
   "private": false,
   "author": "https://github.com/modern-mean/serve-gulp/graphs/contributors",
   "license": "MIT",
+  "main": "index.js",
+  "engines": {
+    "node": ">=6.4",
+    "npm": ">=3.10.3"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/modern-mean/serve-gulp.git"
   },
   "scripts": {
+    "coverage": "gulp test:coverage",
     "test": "gulp test",
-    "build": "gulp",
-    "preversion": "npm test",
-    "version": "npm run build && git add -A",
-    "postversion": "git push && git push --tags && npm publish --access public"
+    "build": "gulp build",
+    "postversion": "git push && git push --tags && npm publish --access public",
+    "release:patch": "npm test && npm run build && npm version patch",
+    "release:minor": "npm test && npm run build && npm version minor",
+    "release:major": "npm test && npm run build && npm version major"
   },
   "dependencies": {
-    "del": "^2.2.2",
     "forever": "~0.15.1",
-    "gulp": "github:gulpjs/gulp#4.0",
     "gulp-nodemon": "~2.0.6"
   },
   "devDependencies": {

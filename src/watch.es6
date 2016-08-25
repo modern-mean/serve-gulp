@@ -1,5 +1,3 @@
-'use strict';
-
 import gulp from 'gulp';
 import lodash from 'lodash';
 import { restart } from './nodemon';
