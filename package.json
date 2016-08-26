@@ -25,9 +25,10 @@
   },
   "dependencies": {
     "forever": "~0.15.1",
-    "gulp-nodemon": "~2.0.6"
+    "gulp-nodemon": "~2.0.6",
+    "@modern-mean/build-gulp": "~0.0.5"
   },
   "devDependencies": {
-    "@modern-mean/build-gulp": "~0.0.5"
+
   }
 }
