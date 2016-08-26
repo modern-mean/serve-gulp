@@ -1,0 +1,27 @@
+language: node_js
+sudo: false
+node_js:
+- 6.4
+env:
+- NODE_ENV=travis CXX="g++-4.8" CC="gcc-4.8"
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
+    - gcc-4.8
+    - clang
+before_install:
+- npm i nsp -g
+- npm install gulpjs/gulp-cli -g
+after_script:
+- nsp audit-package
+- npm run coverage
+notifications:
+  webhooks:
+    urls:
+      secure: O4fdTL8/i17w3I6bWJAP0QWqD427ixui4MCMdKftqsAzZXxF6erre5O6H2ipTLtG1U50xhWt1wSHfGyVs4LTbOxFofXHoKo9UnisVZCPn8cni53fsPh1Cjc0qZsLnipUHgjNjmtM5y1KOfTWuQBmIlNPI7qilIehdBNL8rT4tFOEWyy6l9hAgNVgh264ZnhgTmTB/i9K88qVB349fKL3FSlFSGub2JjCpUNPNrWGQRgafXNDmMr3UglK4pGMBM8o8uX+cfanYSvTM2u8jz6jaI5LGfiPOQnnneYc1F/WabTlUj30QziDNeb0/Ei/kH06HwwWJbY33QXt3n3na4BN6mzLcRxfHh58bj3inw+FYQgn/NCJRBh3oBL5hbdTFOCDcQg2ouq+rxf9RNOh232unNcV0Z8jkJ/2wAzmtPYkrVC7YExAz+zYMb7LLQrf5YNDusIJnYJ/qhL2FXgEARpIY8YjrCplPCuH+75Fb1J378t3O/cPNWFF4I+fUM/6+Pvr697sdPu+JHDzAMoTCMj3XawYBEpdr765I/iprLgFeLuqm8lFW4v0XFpErmUHzzDkkPO2T1xZSic6YhSt2zveh0vH6fKTiqt3a2N/cqk2QRxBqCSGQXpcdtyGzLni3CCAM6KpcS/5JCaAtDmnnkGgYddMMjoWtjPpNRt+V+oIT70=
+    on_success: change
+    on_failure: always
+    on_start: never
